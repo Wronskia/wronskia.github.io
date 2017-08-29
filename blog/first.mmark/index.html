@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<meta name="description" content="Simple minimalist theme">
+<meta name="keywords" content="minimalist,blog,goa,hugo,developer">
+
+<base href="https://wronskia.github.io/">
+
+<title>Yassine Benyahia</title>
+
+<meta name="generator" content="Hugo 0.26" />
+
+
+
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400|Roboto+Slab:400,700|Roboto:300,300i,400,400i,500,500i,700,700i">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://wronskia.github.io/css/main.css">
+
+
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="theme-color" content="#ffffff">
+
+</head>
+<body lang="en-US">
+<div class="container">
+
+
+<header class="row text-left title">
+  <h1 class="title">A simple mathematical view of machine learning</h1>
+</header>
+<section id="category-pane" class="row meta">
+  
+  <div class="col-md-12">
+    <h6 class="text-left meta">
+      PUBLISHED ON AUG 17, 1107 
+      
+      
+      — 
+      
+      
+      <a class="meta" href="/categories/propaganda">PROPAGANDA</a>
+      
+      
+    </h6>
+  </div>
+  
+</section>
+<section id="content-pane" class="row">
+  <div class="col-md-12 text-justify content">
+    
+
+<h1 id="machine-learning-doing-by-understanding-classification">Machine Learning : Doing By Understanding &ndash; Classification</h1>
+
+<p>This post will be about helping you understand the basics of the main machine learning task : classification. More specifically, we are going to scratch the surface of linear classification and quickly address non linear classification. I assume some basic knowledge in probability and regression.</p>
+
+<h1 id="linear-classification">Linear Classification</h1>
+
+<p>Wikipedia : &ldquo;A classification scheme is the product of arranging things into kinds of things (classes) or into groups of classes.&rdquo;</p>
+
+<p>Let us start by simple examples depicted in the introduction to statistical learning book by Gareth James, Daniela Witten, Trevor Hastie, Robert Tibshirani (which I highly recommand along with the element of statistical learning of the same authors). Given the income and the balance of the credit card of bank users, the classification aims to divide the input space into two regions and thus predict a user into one of the two categories default or not default.</p>
+
+<p><img src="/images/balance-income.jpg" alt="Figure 1" /></p>
+
+<p>The yellow points correspond to users who defaulted at a given month and the blue points to the ones who did not.</p>
+
+<p>So, Looking at the Figure your hope is to have a model that draw a line that would separate default guys from non default ones in such a way that you could decide if you should grant to new users a loan given their balance, income. Of course, this is a very basic example but the idea generalizes to multidimentions in a natural way. Indeed, imagine that instead of having the balance and the income as deciding factors (features), you have balance, age, gender etc&hellip;
+The idea remains, you have to build an algorithm that given an input of a bunch of data can differentiate among classes.</p>
+
+<p>Classification is in fact just a special case of regression. This is because the labels are restricted to a discrete set : $\mathcal{Y}={0,\dots,K}$. However, regression techniques are not adapted to a classification task because they don&rsquo;t have the same objective function. The first one aims to minimize the mean squared error and the other one aims to minimize the proportion of misclassified observations.</p>
+
+<p><img src="/images/balance-prob-def.jpg" alt="Figure 2" /></p>
+
+<p>This figure illustrate one of the problems when solving a classification task with regression techniques. Here, only the balance feature was kept. The labels were assigned 0 for &ldquo;not default&rdquo; class and 1 for &ldquo;default&rdquo; class. Using linear regression and given a training data, we learned a prediction function $P(x)$ (the blue line in this example) that takes the balance as input. One could decide to predict the user in one of the two categories based on this decision rule :</p>
+
+<p>[
+\delta(x)=\textbf{1}{P(x) \geq 0.5}
+]</p>
+
+<p>It is clear that the predictions are highly influenced by the number of observations in each class. In the figure, you can see that the relative high number of non default people &ldquo;shifted&rdquo; the line toward the $y=0$ and thus &ldquo;ruined&rdquo; the predictions based on our decision rule.</p>
+
+<p>Moreover, You also notice that if you add just a few  default people that have very high balance, this will &ldquo;shift&rdquo; the blue line toward the $y=1$ axis (because it tries to minimize the mean squared error) and therefore the regression is unstable. One could also think about an example where the mean squared error is very high and the proportion of misclassified observations is 0%.</p>
+
+<p>One final reason is that our prediction function $P(x)$ will predict values outside the desired range $[0,1]$ (To interpret the results as the probability of default)</p>
+
+<p>For all those reasons, we definitely need more adapted techniques.</p>
+
+<h1 id="discriminative-methods">Discriminative methods</h1>
+
+<p>Discriminative methods are a class of machine learning models that directly model the quantity of interest : $p(y\mid\mathbf{x})$. Therefore, leading to the prediction that maximizes this probability. The most popular discriminative model is logistic regression.</p>
+
+<h2 id="logistic-regression">Logistic Regression</h2>
+
+<p>In the following, we are gonna deal with a 2-class classification $\mathcal{Y}={0,1}$.
+One can generalize logistic regression to multiple classes See [Murphy, Machine learning : aprobabilistic perpspective]</p>
+
+<p>In linear regression, we had that the responses were normally distributed :
+$$
+p(y\mid \textbf{x},\textbf{w}) = N(y \mid\textbf{w}^\intercal \textbf{x},\sigma^2)
+$$</p>
+
+<p>Here, since the y variable takes only 2 possible values (0 or 1) it would be more appropriate to use Bernoulli distribution :
+$$
+p(y\mid \mathbf{x},\mathbf{w}) = Bern(y \mid p(\mathbf{x}))
+$$
+By definition of the expectation of the bernoulli distribution, we get :
+$$
+p(\textbf{x})= \mathop{\mathbb{E}}(y\mid \textbf{x})=p(y=1 \mid \textbf{x})
+$$
+Our aim is thus to model this probability. In fact, the logistic regression model comes from modeling this quantity with a logistic function $\sigma(x)=\frac{e^x}{1+e^x}$.
+<img src="/images/logistic.png" alt="Figure 3" />
+The intuition behind the choice of this function is that it maps the linear combination of the input $\textbf{w}^\intercal \textbf{x}$ into a [0,1] interval in such a way that we can interpret it as a probability. So, very high $\textbf{w}^\intercal \textbf{x}$ values will indicate a high probability of belonging to the class which has been labeled by 1.
+ The modeling of the probability give us
+ $$
+ p(y\mid \textbf{x},\textbf{w}) = Bern(y \mid \sigma(\textbf{w}^\intercal \textbf{x}))
+ $$
+  The final decision rule is :
+$$
+    \hat{y}(\textbf{x})= 1 \Leftrightarrow p(y=1 \mid \textbf{x}) &gt; 0.5 \Leftrightarrow   \hat{\textbf{w}}^\intercal \textbf{x} &gt; 0
+    $$</p>
+
+<p>$\hat{\textbf{w}}^\intercal \textbf{x} &gt; 0$ is exactly the line that would have been drawn to separate the two classes default or not default in the first Figure ($\hat{\textbf{w}}$ is learned by maximizing the likelihood).</p>
+
+<p>Thus, given the assumption of the conditional independence of observations $(y_n,\textbf{x}<em>n)</em>{n=1}^N$ of our training set, we get that the joint distribution is :</p>
+
+<p>$$
+p(\textbf{y}\mid\textbf{x},\textbf{w})=\prod_{n=1}^{N} p(y_n \mid \textbf{x}<em>n )
+$$
+which is equal to :
+$$
+\begin{aligned}
+ p(\textbf{y}\mid\textbf{x},\textbf{w})&amp;=\prod</em>{n=1}^{N} p(y_n \mid \textbf{x}<em>n )  <br />
+ &amp;= \prod</em>{n : y_n=1}^{N} p(y_n=1 \mid \textbf{x}<em>n)  \prod</em>{n : y_n=0}^{N} p(y_n=0 \mid \textbf{x}_n)
+\end{aligned}
+$$</p>
+
+<p>The likelihood is then given by :
+$$
+\prod_{n=1}^{N} p(y_n \mid \textbf{x}<em>n ) = \prod</em>{n : y_n=1}^{N} p(y_n=1 \mid \textbf{x}<em>n)  \prod</em>{n : y_n=0}^{N} p(y_n=0 \mid \textbf{x}_n)
+$$</p>
+
+<p>Resulting in a cost function $\mathcal{L}(\textbf{w})$ :
+$$
+\begin{aligned}
+\mathcal{L}(\textbf{w})  &amp;= -\log(L(\textbf{w})) \</p>
+
+<p>&amp;= -\sum_{n=1}^N y_n\log(\sigma(\textbf{w}^\intercal \textbf{x}_n)) + (1-y_n)\log(1-\sigma(\textbf{w}^\intercal \textbf{x}_n))) \</p>
+
+<p>&amp;= \sum_{n=1}^N \log(1+\exp(\textbf{w}^\intercal \textbf{x})) - y_n\textbf{w}^\intercal \textbf{x}</p>
+
+<p>\end{aligned}
+$$</p>
+
+<p>One could notice $\mathcal{L}(\textbf{w})$ is a convex function (suffice to show that the second derivative is non negative for the non linear term)</p>
+
+<p>Since the cost function is convex, gradient descent is a very good method to solve the optimization problem :</p>
+
+<p>$$
+\textbf{w}^{(t+1)}=\textbf{w}^{(t)}-\gamma^{(t)}\nabla\mathcal{L}(\textbf{w}^{(t)})
+$$</p>
+
+<p>In this equation, $\gamma^{(t)}$ is the learning rate and is a hyper-parameter to optimize. A big learning rate could be the cause of divergence</p>
+
+<p>Gradient descent is also very sensitive to the scaling of the features, one might want to standardize (mean 0 and variance 1) them when using gradient descent.</p>
+
+<h2 id="regularized-logistic-regression">Regularized Logistic Regression</h2>
+
+<p>Regularization is very useful to reduce the model complexity since it will introduce a penalty on the parameters in the minimization problem. This is a very useful technique to reduce over-fitting.</p>
+
+<p>The loss of the regularized logistic regression is given by :</p>
+
+<p>$$
+\mathcal{L}<em>{reg}(\textbf{w}) = -\sum</em>{n=1}^N \log(p(y_n\mid \textbf{w}^{T}x_n)) + \lambda \left\lVert\textbf{w}\right\rVert
+$$
+For the norm of $\textbf{w}$, the L1,2-norm are the ones that are often used. L1 norm will tend to shrink the parameters to zero. Its advantage is that it can yield to sparse models. Moreover, L1 regularization can also be seen as a model selection technique.</p>
+
+<p><img src="/images/height-weight.png" alt="Figure 4" /></p>
+
+<p>This Figure depicts an example of logistic regression on height/weight data with labels {Males in red,Females in blue}. We can see that the logistic regression is performing quite good for this data.</p>
+
+<p>Logistic regression is one of the most popular discriminative method, however one can find others that perform much better in a machine learning contest like tree based methods, neural networks or even Support Vector Machine.
+###Why L1 Regularization shrinks the parameters to zero
+<img src="/images/reg.png" alt="Figure 5" />
+You can view this as a minimization under constraint. Imagine you are minimizing the cost function with the constraint that $\textbf{w}=(w_1,w_2)$ (in this example we only have two parameters) is in the Rhombus (for L1) or in the circle (for L2). From the Figure one can directly notice that L2 norm puts the weight $w_1$ to very small value while L1 norm puts $w_1=0$. That is why, L1 norm is very useful technique to reduce the complexity and to sparsify your model.</p>
+
+<p>One other class of models are the generative ones, they are based upon Bayes rule.</p>
+
+<h1 id="generative-methods">Generative methods</h1>
+
+<p>We saw that discriminative methods models directly the quantity of interest : $p(y\mid\mathbf{x})$ that would discriminate between classes. Generative models, one the other hand, models $p(\textbf{x}\mid y)$ and turns it down with Bayes rule.</p>
+
+<p>Generative models tend to solve a higher problem since they model the distribution of the observed variables. That&rsquo;s why generative models can be used to generate data.</p>
+
+<p>One natural question that arise is that if there exist an optimal classifier ?
+The answer is yes conditionally on the fact that the distribution of the generating model $p(\textbf{x},y)$ was known <a href="http://www-math.mit.edu/~rigollet/courses/Notes/L2.pdf">http://www-math.mit.edu/~rigollet/courses/Notes/L2.pdf</a>. This classifier will then optimize the following : $\hat{y}(\textbf{x})=argmax_{y \in \mathcal{Y}}p(y\mid \textbf{x})$.</p>
+
+<p>Thus generative classifiers will try to model the joint distribution so that it can approximate this optimal classifier.
+Naive bayes is one of them.</p>
+
+<h2 id="naive-bayes">Naive Bayes</h2>
+
+<p>Naive Bayes classifier will model the joint distribution and turn it down to be able to discriminate among classes with the following Bayes formula :
+$$
+p(y=c \mid \textbf{x}) = \frac{p(\textbf{x}\mid c)p(y=c)}{\sum_k p(\textbf{x}\mid y=k)p(y=k)}
+$$</p>
+
+<p>Actually, Naive Bayes Classifier makes the naive assumption of conditional independence between features. With this assumption, one would easily model $p(\textbf{x} \mid y=c)$ by making some assumptions on the conditional marginal distribution. The assumptions on the conditional densities depend on the features. For example, if we have real-valued features, you could assume normality :
+$$
+p(\textbf{x} \mid y=c) = \prod_{i=1}^{p } \mathcal{N}(x<em>i \mid \mu</em>{ic},\sigma^2_{ic})
+$$</p>
+
+<p>One could also estimate $p(y=c)$ by the proportions of observations in class $\textit{c}$</p>
+
+<p>Obviously, we wouldn&rsquo;t expect the features to be independent (for example in the height/weight example). But, even with this Naive assumption, Naive Bayes performs pretty good sometimes.</p>
+
+<p>One could also find other generative models like Linear Discriminant Analysis or Quadratic Discriminant Analysis.</p>
+
+<h2 id="linear-discriminant-analysis">Linear Discriminant Analysis</h2>
+
+<p>Linear Discriminant Analysis or LDA is a generative model that assumes that $X=(X_1,&hellip;,X_p)$ are normally distributed. In fact, each class density is modeled as a multivariate normal
+$$
+p(\textbf{x} \mid y=k)=\frac{1}{(2\pi)^{p/2} \mid \Sigma_k \mid} e^{-\frac{1}{2}(\textbf{x}-\mu_k) ^\intercal \Sigma_k^{-1} (\textbf{x}-\mu_k)}
+$$
+With $\Sigma_k=\Sigma$ for LDA.</p>
+
+<p>To compare two classes say $\textbf{l}$ and $\textbf{k}$, one could compute their log-ratio. We then use $\log(\frac{p(y=k\mid \textbf{x})}{p(y=l \mid \textbf{x})})$ to compare them.</p>
+
+<p>Using Bayes rule, we get the $\log(\frac{p(y=k\mid \textbf{x})}{p(y=l \mid \textbf{x})})$ is equal to :</p>
+
+<p>$$
+\log(\frac{p(y=k)}{p(y=l)}) -\frac{1}{2}(\mu_k+\mu_l)^\intercal \Sigma^{-1}(\mu_k - \mu_l) + \textbf{x}^\intercal \Sigma^{-1}(\mu_k - \mu_l)
+$$</p>
+
+<p>From this, one could easily derive the decision boundaries between $q\textbf{k}$ and $\textbf{l}$
+$$
+{\textbf{x} :  \delta_k(\textbf{x}) = \delta_c(\textbf{x})}
+$$
+ with equating to zero :<br />
+ $$
+ \delta_k(\textbf{x})=\textbf{x}^\intercal \Sigma^{-1}\mu_k -\frac{1}{2}\mu_k ^\intercal \Sigma^{-1} \mu_k + \log(p(y=k))
+ $$
+Which is linear in $\textbf{x}$.</p>
+
+<p>The parameters which are the mean and the covariance matrix are estimated using maximum likelihood.</p>
+
+<h2 id="quadratic-discriminant-analysis">Quadratic Discriminant Analysis</h2>
+
+<p>The only difference between LDA and QDA resides in the fact that QDA doesn&rsquo;t make the assumption of a constant covariance matrix. In fact the decision boundaries becomes :
+$$
+\delta_k(\textbf{x})=-\frac{1}{2}\log(\left|\Sigma_k\right|) - \frac{1}{2}(\textbf{x}-\mu_k^\intercal)\Sigma_k^{-1}(\textbf{x}-\mu_k) + \log(p(y=k))
+$$
+ Which is quadratic in $\textbf{x}$.</p>
+
+<p>QDA is more flexible than LDA since its decision boundaries are quadratic in $\textbf{x}$ and allow us to have to degree of freedom when fitting a model. However, for linearly separable data, QDA might overfit the data.
+On top of that, QDA has way more parameters to estimate. Indeed, LDA has $(K-1)(p+1)$ parameters to estimate, with $K$ being the number of classes. While QDA has $(K-1)(p(p+3)/2 + 1)$ parameters to estimate. We thus notice that if the number of features $p$ increases then QDA becomes quickly computationally expensive.</p>
+
+<h2 id="discriminative-vs-generative">Discriminative vs Generative</h2>
+
+<p>V. Vapnik $\textit{&ldquo;One should solve the [classification] problem directly and never solve a more general problem as an intermediate step&rdquo;}$</p>
+
+<p>As we said earlier, Generative models tend to solve a more complex problem which consist in estimation the joint distribution.</p>
+
+<p><img src="/images/densities.png" alt="Figure 6" /></p>
+
+<p>This Figure is an artificial example from Bishop [<a href="http://users.isr.ist.utl.pt/~wurmd/Livros/school/Bishop%20-%20Pattern%20Recognition%20And%20Machine%20Learning%20-%20Springer%20%202006.pdf">http://users.isr.ist.utl.pt/~wurmd/Livros/school/Bishop%20-%20Pattern%20Recognition%20And%20Machine%20Learning%20-%20Springer%20%202006.pdf</a>] that shows us that the joint distribution could contain a lot of structure that is not needed to discriminate between classes.
+Its very hard to say that one method is better than the other since it depends on the problem. However, in practice it seems that in average discriminative methods performs better but converge more slowly. In [<a href="https://ai.stanford.edu/~ang/papers/nips01-discriminativegenerative.pdf">https://ai.stanford.edu/~ang/papers/nips01-discriminativegenerative.pdf</a>], they compare Naive Bayes and logistic regression on known datasets (breast cancer data,&hellip;). Their findings is depicted below.
+<img src="/images/andrew-ng.png" alt="Figure 6" /></p>
+
+<p>From this Figure, one could notice that Naive Bayes seems to converge faster than logistic regression. That is why it is often to use Naive Bayes classifier as a baseline approach.</p>
+
+<p>In fact, they showed that Discriminative learning tends to have lower asymptotic error. They also showed that generative classifiers could reach their highest asymptotic error faster.</p>
+
+<h1 id="non-linear-classification">Non Linear Classification</h1>
+
+<p>In this post, we discussed linear classification, however in real world applications, data is almost all of the time not linearly separable.
+As an example, you can see in the figure below that the data is clearly not linearly separable and cannot be separated by a hyperplane (a line here).</p>
+
+<p><img src="/images/nonlin1.png" alt="Figure 7" /></p>
+
+<p>However if you add as a feature $(x-x_1)^2$+ $(x-x_2)^2$ you end up with this feature space :</p>
+
+<p><img src="/images/nonlin2.png" alt="Figure 8" /></p>
+
+<p>And thus the data becomes linearly separable and can be separated by a hyperplane. Therefore, in real world examples adding those non linear features is key to perform well in a machine learning contest. However, finding the good non linear transformation is very hard and never as simple as the example we saw. That is why, deep learning is so popular because it builds those non linear features automatically across non linear activation functions applied at each layer.</p>
+
+<h1 id="some-nice-papers">Some Nice Papers</h1>
+
+<ul>
+<li><a href="https://ai.stanford.edu/~ang/papers/nips01-discriminativegenerative.pdf">https://ai.stanford.edu/~ang/papers/nips01-discriminativegenerative.pdf</a></li>
+
+<li><p><a href="http://www.jmlr.org/papers/volume3/blei03a/blei03a.pdf">http://www.jmlr.org/papers/volume3/blei03a/blei03a.pdf</a></p></li>
+
+<li><p><a href="http://papers.nips.cc/paper/2979-efficient-sparse-coding-algorithms.pdf">http://papers.nips.cc/paper/2979-efficient-sparse-coding-algorithms.pdf</a></p></li>
+
+<li><p><a href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.643.6611&amp;rep=rep1&amp;type=pdf">http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.643.6611&amp;rep=rep1&amp;type=pdf</a></p>
+
+<h1 id="references">References</h1></li>
+
+<li><p><a href="http://users.isr.ist.utl.pt/~wurmd/Livros/school/Bishop%20-%20Pattern%20Recognition%20And%20Machine%20Learning%20-%20Springer%20%202006.pdf">http://users.isr.ist.utl.pt/~wurmd/Livros/school/Bishop%20-%20Pattern%20Recognition%20And%20Machine%20Learning%20-%20Springer%20%202006.pdf</a></p></li>
+
+<li><p><a href="https://github.com/jonesgithub/book-1/blob/master/ML%20Machine%20Learning-A%20Probabilistic%20Perspective.pdf">https://github.com/jonesgithub/book-1/blob/master/ML%20Machine%20Learning-A%20Probabilistic%20Perspective.pdf</a></p></li>
+
+<li><p><a href="https://web.stanford.edu/~hastie/Papers/ESLII.pdf">https://web.stanford.edu/~hastie/Papers/ESLII.pdf</a></p></li>
+
+<li><p><a href="https://github.com/epfml/ML_course">https://github.com/epfml/ML_course</a></p></li>
+
+<li><p><a href="http://www-bcf.usc.edu/~gareth/ISL/ISLR%20First%20Printing.pdf">http://www-bcf.usc.edu/~gareth/ISL/ISLR%20First%20Printing.pdf</a></p></li>
+
+<li><p><a href="http://cs229.stanford.edu/">http://cs229.stanford.edu/</a></p></li>
+</ul>
+
+  </div>
+</section>
+<section id="tag-pane" class="row meta">
+  
+  <div class="col-md-12">
+    <h6 class="text-right meta">
+      
+      
+      TAGS: 
+      
+      
+      <a class="meta" href="/tags/classification">CLASSIFICATION</a>, 
+      
+      <a class="meta" href="/tags/ml">ML</a>, 
+      
+      <a class="meta" href="/tags/regression">REGRESSION</a>
+      
+      
+    </h6>
+  </div>
+  
+</section>
+
+
+
+
+<div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "personal-yassine-benyahia" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+<section id="menu-pane" class="row menu text-center">
+  
+  
+  
+  
+  
+  <h4 class="text-center"><a class="menu-item" href="https://wronskia.github.io/">home</a></h4>
+</section>
+
+
+
+<footer class="row text-center footer">
+  <hr />
+  
+  <h6 class="text-center copyright">© 2017. Yassine Benyahia. [All Rights Reserved].</h6>
+  
+  
+</footer>
+
+</div>
+
+
+
+
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'XYZ', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
+
+

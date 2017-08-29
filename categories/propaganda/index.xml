@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Propaganda on Yassine Benyahia</title>
+    <link>https://wronskia.github.io/categories/propaganda/</link>
+    <description>Recent content in Propaganda on Yassine Benyahia</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-US</language>
+    <lastBuildDate>Sat, 01 Oct 2016 16:59:13 -0400</lastBuildDate>
+    
+	<atom:link href="https://wronskia.github.io/categories/propaganda/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>A simple mathematical view of machine learning</title>
+      <link>https://wronskia.github.io/blog/first.mmark/</link>
+      <pubDate>Sat, 01 Oct 2016 16:59:13 -0400</pubDate>
+      
+      <guid>https://wronskia.github.io/blog/first.mmark/</guid>
+      <description>Machine Learning : Doing By Understanding &amp;ndash; Classification This post will be about helping you understand the basics of the main machine learning task : classification. More specifically, we are going to scratch the surface of linear classification and quickly address non linear classification. I assume some basic knowledge in probability and regression.
+Linear Classification Wikipedia : &amp;ldquo;A classification scheme is the product of arranging things into kinds of things (classes) or into groups of classes.</description>
+    </item>
+    
+  </channel>
+</rss>
