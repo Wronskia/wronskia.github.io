@@ -40,26 +40,6 @@
   </url>
   
   <url>
-    <loc>https://wronskia.github.io/tags/classification/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://wronskia.github.io/tags/ml/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://wronskia.github.io/categories/ml/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://wronskia.github.io/tags/regression/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://wronskia.github.io/tags/</loc>
     <lastmod>2016-10-02T22:55:05-04:00</lastmod>
     <priority>0</priority>

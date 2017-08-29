@@ -11,12 +11,13 @@
     
     
     <item>
-      <title>A simple mathematical view of machine learning</title>
+      <title></title>
       <link>https://wronskia.github.io/blog/first/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://wronskia.github.io/blog/first/</guid>
-      <description> Soon to be released  </description>
+      <description>Machine Learning : Doing By Understanding &amp;ndash; Classification This post will be about helping you understand the basics of the main machine learning task : classification. More specifically, we are going to scratch the surface of linear classification and quickly address non linear classification. I assume some basic knowledge in probability and regression.
+Linear Classification Wikipedia : &amp;ldquo;A classification scheme is the product of arranging things into kinds of things (classes) or into groups of classes.</description>
     </item>
     
   </channel>
