@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on Yassine Benyahia</title>
+    <link>https://wronskia.github.io/tags/</link>
+    <description>Recent content in Tags on Yassine Benyahia</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-US</language>
+    <lastBuildDate>Sun, 02 Oct 2016 22:55:05 -0400</lastBuildDate>
+    
+	<atom:link href="https://wronskia.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>About</title>
+      <link>https://wronskia.github.io/tags/about/</link>
+      <pubDate>Sun, 02 Oct 2016 22:55:05 -0400</pubDate>
+      
+      <guid>https://wronskia.github.io/tags/about/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Classification</title>
+      <link>https://wronskia.github.io/tags/classification/</link>
+      <pubDate>Tue, 29 Aug 2017 16:59:13 -0400</pubDate>
+      
+      <guid>https://wronskia.github.io/tags/classification/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Deep Learning</title>
+      <link>https://wronskia.github.io/tags/deep-learning/</link>
+      <pubDate>Tue, 29 Aug 2017 16:59:13 -0400</pubDate>
+      
+      <guid>https://wronskia.github.io/tags/deep-learning/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Ml</title>
+      <link>https://wronskia.github.io/tags/ml/</link>
+      <pubDate>Tue, 29 Aug 2017 16:59:13 -0400</pubDate>
+      
+      <guid>https://wronskia.github.io/tags/ml/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Regression</title>
+      <link>https://wronskia.github.io/tags/regression/</link>
+      <pubDate>Tue, 29 Aug 2017 16:59:13 -0400</pubDate>
+      
+      <guid>https://wronskia.github.io/tags/regression/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
