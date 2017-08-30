@@ -78,8 +78,9 @@
 
 <p>The yellow points correspond to users who defaulted at a given month and the blue points to the ones who did not.</p>
 
-<p>So, Looking at the Figure your hope is to have a model that draw a line that would separate default guys from non default ones in such a way that you could decide if you should grant a loan to new users for example given their balance and income. Of course, this is a very basic example but the idea generalizes to multidimentions in a natural way. Indeed, imagine that instead of having the balance and the income as deciding factors (features), you have balance, age, gender etc&hellip;
-The idea remains, you have to build an algorithm that given an input of a bunch of data can differentiate among classes.</p>
+<p>So, Looking at the Figure your hope is to have a model that draw a line that would separate default guys from non default ones in such a way that you could decide if you should grant a loan to new users for example given their balance and income. Of course, this is a very basic example but the idea generalizes to multidimentions in a natural way. Indeed, imagine that instead of having the balance and the income as deciding factors (features), you have balance, age, gender etc&hellip;</p>
+
+<p>The idea remains, you have to build an algorithm that given an input of a bunch of data can differentiate among classes.</p>
 
 <p>Classification is in fact just a special case of regression. This is because the labels are restricted to a discrete set : $\mathcal{Y}=\{0,\dots,K\}$. However, regression techniques are not adapted to a classification task because they don&rsquo;t have the same objective function. The first one aims to minimize the mean squared error and the other one aims to minimize the proportion of misclassified observations.</p>
 
@@ -165,7 +166,7 @@ $$</p>
 
 <h2 id="regularized-logistic-regression">Regularized Logistic Regression</h2>
 
-<p>Regularization is very useful to reduce the model complexity since it will introduce a penalty on the parameters in the minimization problem. This is a very useful technique to reduce over-fitting.</p>
+<p>Regularization is very useful to reduce the model complexity since it will introduce a penalty on the parameters in the minimization problem. This is a very useful technique to reduce overfitting.</p>
 
 <p>The loss of the regularized logistic regression is given by :</p>
 
@@ -176,7 +177,7 @@ For the norm of $\textbf{w}$, the L1,2-norm are the ones that are often used. L1
 
 <p><img src="/images/height-weight.png" alt="Figure 4" /></p>
 
-<p>This Figure depicts an example of logistic regression on height/weight data with labels {Males in red,Females in blue}. We can see that the logistic regression is performing quite good for this data.</p>
+<p>This Figure depicts an example of logistic regression on height/weight data with labels {Males in red, Females in blue}. We can see that the logistic regression is performing quite good for this data.</p>
 
 <p>Logistic regression is one of the most popular discriminative method, however one can find others that perform much better in a machine learning contest like tree based methods, neural networks or even Support Vector Machine.</p>
 
@@ -190,12 +191,13 @@ For the norm of $\textbf{w}$, the L1,2-norm are the ones that are often used. L1
 
 <h1 id="generative-methods">Generative methods</h1>
 
-<p>We saw that discriminative methods models directly the quantity of interest : $p(y\mid\mathbf{x})$ that would discriminate between classes. Generative models, one the other hand, models $p(\textbf{x}\mid y)$ and turns it down with Bayes rule.</p>
+<p>We saw that discriminative methods models directly the quantity of interest : $p(y\mid\mathbf{x})$ that would discriminate between classes. Generative models, on the other hand, models $p(\textbf{x}\mid y)$ and turns it down with Bayes rule.</p>
 
 <p>Generative models tend to solve a higher problem since they model the distribution of the observed variables. That&rsquo;s why generative models can be used to generate data.</p>
 
-<p>One natural question that arise is that if there exist an optimal classifier ?
-The answer is yes conditionally on the fact that the distribution of the generating model $p(\textbf{x},y)$ was known <a href="http://www-math.mit.edu/~rigollet/courses/Notes/L2.pdf">http://www-math.mit.edu/~rigollet/courses/Notes/L2.pdf</a>. This classifier will then optimize the following : $\hat{y}(\textbf{x})=argmax_{y \in \mathcal{Y}}p(y\mid \textbf{x})$.</p>
+<p>One natural question that arise is that if there exist an optimal classifier ?</p>
+
+<p>The answer is yes conditionally on the fact that the distribution of the generating model $p(\textbf{x},y)$ was known <a href="http://www-math.mit.edu/~rigollet/courses/Notes/L2.pdf">http://www-math.mit.edu/~rigollet/courses/Notes/L2.pdf</a>. This classifier will then optimize the following : $\hat{y}(\textbf{x})=argmax_{y \in \mathcal{Y}}p(y\mid \textbf{x})$.</p>
 
 <p>Thus generative classifiers will try to model the joint distribution so that it can approximate this optimal classifier.
 Naive bayes is one of them.</p>
@@ -212,7 +214,7 @@ $$
 p(\textbf{x} \mid y=c) = \prod_{i=1}^{p} \mathcal{N}(x_i \mid \mu_{ic},\sigma^2_{ic})
 $$</p>
 
-<p>One could also estimate $p(y=c)$ by the proportions of observations in class $\textit{c}$</p>
+<p>One could also estimate $p(y=c)$ by the proportions of observations in class $\textit{c}$.</p>
 
 <p>Obviously, we wouldn&rsquo;t expect the features to be independent (for example in the height/weight example). But, even with this Naive assumption, Naive Bayes performs pretty good sometimes.</p>
 
@@ -234,9 +236,9 @@ With $\Sigma_k=\Sigma$ for LDA.</p>
 \log(\frac{p(y=k)}{p(y=l)}) -\frac{1}{2}(\mu_k+\mu_l)^\intercal \Sigma^{-1}(\mu_k - \mu_l) + \textbf{x}^\intercal \Sigma^{-1}(\mu_k - \mu_l)
 $$</p>
 
-<p>From this, one could easily derive the decision boundaries between $q\textbf{k}$ and $\textbf{l}$
+<p>From this, one could easily derive the decision boundaries between $\textbf{k}$ and $\textbf{l}$
 $$
-{\textbf{x} :  \delta_k(\textbf{x}) = \delta_c(\textbf{x})}
+\{\textbf{x} :  \delta_k(\textbf{x}) = \delta_c(\textbf{x})\}
 $$
  with equating to zero :<br />
  $$
@@ -284,11 +286,11 @@ As an example, you can see in the figure below that the data is clearly not line
 
 <p><img src="/images/nonlin1.png" alt="Figure 7" /></p>
 
-<p>However if you add as a feature $(x-x_1)^2$+ $(x-x_2)^2$ you end up with this feature space :</p>
+<p>However if you add as a feature $(x-x_1)^2$+ $(y-y_1)^2$ you end up with this feature space :</p>
 
 <p><img src="/images/nonlin2.png" alt="Figure 8" /></p>
 
-<p>And thus the data becomes linearly separable and can be separated by a hyperplane. Therefore, in real world examples adding those non linear features is key to perform well in a machine learning contest. However, finding the good non linear transformation is very hard and never as simple as the example we saw. That is why, deep learning is so popular because it builds those non linear features automatically across non linear activation functions applied at each layer.</p>
+<p>And thus the data becomes linearly separable and can be separated by a hyperplane. Therefore, in real world examples adding those non linear features is key to perform well in a machine learning contest. However, finding the good non linear transformation is very hard and never as simple as the example we saw. That is why, deep learning is so popular because it builds those non linear features automatically across non linear activation functions applied at each layer. And, even though deep learning performs very good, nothing can beat expert hand engineered features.</p>
 
 <h1 id="some-nice-papers">Some Nice Papers</h1>
 
