@@ -13,13 +13,13 @@
   </url>
   
   <url>
-    <loc>https://wronskia.github.io/categories/about/</loc>
+    <loc>https://wronskia.github.io/tags/about/</loc>
     <lastmod>2016-10-02T22:55:05-04:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://wronskia.github.io/tags/about/</loc>
+    <loc>https://wronskia.github.io/categories/about/</loc>
     <lastmod>2016-10-02T22:55:05-04:00</lastmod>
     <priority>0</priority>
   </url>
@@ -41,12 +41,12 @@
   </url>
   
   <url>
-    <loc>https://wronskia.github.io/categories/deep-learning/</loc>
+    <loc>https://wronskia.github.io/tags/deep-learning/</loc>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://wronskia.github.io/tags/deep-learning/</loc>
+    <loc>https://wronskia.github.io/categories/deep-learning/</loc>
     <priority>0</priority>
   </url>
   
